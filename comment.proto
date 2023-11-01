@@ -1,0 +1,42 @@
+syntax = "proto3";
+package comment;
+
+option go_package = ".;review";
+
+
+service Comment {
+  rpc ReviewProduct (ReviewProductRequest) returns (CommonResponse) {}
+  rpc GetReviewProduct (GetCommentReq) returns (CommentProductsRes) {}
+}
+
+message GetCommentReq {
+  string productId = 1;
+}
+
+message CommentProduct {
+  string productId = 1;
+  int32 rateStar = 2;
+  string body = 3;
+  string ownerId = 4;
+}
+
+message CommentProductsRes {
+  repeated CommentProduct list = 1;
+}
+
+message ReviewProductRequest {
+  string productId = 1;
+  int32 rateStar = 2;
+  string body = 3;
+  string ownerId = 4;
+}
+
+enum Status {
+  OK = 0;
+  FAILED = 1;
+}
+
+message CommonResponse {
+  Status status = 1;
+  string message = 2;
+}
