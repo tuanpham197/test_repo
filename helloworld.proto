@@ -16,23 +16,44 @@ syntax = "proto3";
 
 option go_package = "google.golang.org/grpc/examples/helloworld/helloworld";
 option java_multiple_files = true;
-option java_package = "io.grpc.examples.helloworld";
-option java_outer_classname = "HelloWorldProto";
+option java_package = "io.grpc.examples.comment";
+option java_outer_classname = "CommentProto";
 
-package helloworld;
+package comment;
 
 // The greeting service definition.
-service Greeter {
+service Comment {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  // rpc SayHello (HelloRequest) returns (HelloReply) {}
+
+  rpc CalculateInventory (InventoryProductRequest) returns (InventoryProductResponse) {}
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+// message HelloRequest {
+//   string name = 1;
+// }
+
+message InventoryProductRequest {
+  string productId = 1;
+  int32 quantity = 2;
+  double price = 3;
+}
+
+enum Status {
+  OK = 0;
+  NOT_FOUND = 1;
+  INVALID_PRICE = 2;
+  FAILED = 3;
+}
+
+message InventoryProductResponse {
+  Status status = 1;
+  string message = 2;
+  int32 quantity = 3;
 }
 
 // The response message containing the greetings
-message HelloReply {
-  string message = 1;
-}
+// message HelloReply {
+//   string message = 1;
+// }
