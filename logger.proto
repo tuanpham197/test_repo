@@ -1,0 +1,46 @@
+syntax = "proto3";
+package logger;
+
+option go_package = ".;logger";
+
+
+service Logger {
+  rpc StoreLogFile (LogRequest) returns (StatusRes) {}
+  rpc StoreLogDB (LogRequest) returns (StatusRes) {}
+  rpc GetListLog (FilterLog) returns (LogRes) {}
+}
+
+message GetLogDetailReq {
+  string logId = 1;
+}
+
+message FilterLog {
+  string id = 1;
+  int32 level = 2;
+  string env = 3;
+  string type = 4;
+}
+
+message LogRequest {
+  string id = 1;
+  int32 level = 2;
+  string message = 3;
+  string env = 4;
+  string path = 5;
+  string severity = 6;
+  int32 line = 7;
+}
+
+message LogRes {
+  repeated LogRequest list = 1;
+}
+
+enum Status {
+  OK = 0;
+  FAILED = 1;
+}
+
+message StatusRes {
+  Status status = 1;
+  string message = 2;
+}

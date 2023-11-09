@@ -10,6 +10,13 @@ protoc --proto_path=./ --go_out=./comment --go_opt=paths=source_relative \
     comment.proto
 ```
 
+### Run generate proto for logger
+```
+protoc --proto_path=./ --go_out=./logger --go_opt=paths=source_relative \
+    --go-grpc_out=./logger --go-grpc_opt=paths=source_relative \
+    logger.proto
+```
+
 ### Add tag version for pkg
 1. Add tag
 ```
