@@ -5,7 +5,7 @@ option go_package = ".;address";
 
 
 service Address {
-  rpc GetProvice (Request) returns (ResponseProvince) {}
+  rpc GetProvince (Request) returns (ResponseProvince) {}
   rpc GetDistrict (Request) returns (ResponseDistrict) {}
   rpc GetWard (Request) returns (ResponseWard) {}
   rpc GetListAddressUser (RequestListAddress) returns (ResponseListAddress) {}
@@ -37,9 +37,9 @@ message RequestListAddress {
 
 message AddressCreateRequest {
   string user_id = 1;
-  string province_id = 2;
-  string district_id = 3;
-  string ward_id = 4;
+  string province_code = 2;
+  string district_code = 3;
+  string ward_code = 4;
   string address = 5;
   string phone_number = 6;
   bool is_default = 7;
@@ -48,11 +48,12 @@ message AddressCreateRequest {
 message Request {
   string code = 1;
   string name = 2;
+  string parent_code = 3;
 }
 
 message Province {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
 }
 
 message ResponseProvince {
@@ -69,13 +70,13 @@ message ResponseWard {
 
 message District {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
   string province_code = 3;
 }
 
 message Ward {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
   string district_code = 3;
 }
 
