@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Address_GetProvice_FullMethodName         = "/address.Address/GetProvice"
+	Address_GetProvince_FullMethodName        = "/address.Address/GetProvince"
 	Address_GetDistrict_FullMethodName        = "/address.Address/GetDistrict"
 	Address_GetWard_FullMethodName            = "/address.Address/GetWard"
 	Address_GetListAddressUser_FullMethodName = "/address.Address/GetListAddressUser"
@@ -31,12 +31,12 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AddressClient interface {
-	GetProvice(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseProvince, error)
+	GetProvince(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseProvince, error)
 	GetDistrict(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseDistrict, error)
 	GetWard(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseWard, error)
 	GetListAddressUser(ctx context.Context, in *RequestListAddress, opts ...grpc.CallOption) (*ResponseListAddress, error)
 	CreateAddressUser(ctx context.Context, in *AddressCreateRequest, opts ...grpc.CallOption) (*AddressUser, error)
-	UpdateAddressUser(ctx context.Context, in *AddressUser, opts ...grpc.CallOption) (*AddressUser, error)
+	UpdateAddressUser(ctx context.Context, in *AddressUpdateRequest, opts ...grpc.CallOption) (*AddressUser, error)
 }
 
 type addressClient struct {
@@ -47,9 +47,9 @@ func NewAddressClient(cc grpc.ClientConnInterface) AddressClient {
 	return &addressClient{cc}
 }
 
-func (c *addressClient) GetProvice(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseProvince, error) {
+func (c *addressClient) GetProvince(ctx context.Context, in *Request, opts ...grpc.CallOption) (*ResponseProvince, error) {
 	out := new(ResponseProvince)
-	err := c.cc.Invoke(ctx, Address_GetProvice_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Address_GetProvince_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ func (c *addressClient) CreateAddressUser(ctx context.Context, in *AddressCreate
 	return out, nil
 }
 
-func (c *addressClient) UpdateAddressUser(ctx context.Context, in *AddressUser, opts ...grpc.CallOption) (*AddressUser, error) {
+func (c *addressClient) UpdateAddressUser(ctx context.Context, in *AddressUpdateRequest, opts ...grpc.CallOption) (*AddressUser, error) {
 	out := new(AddressUser)
 	err := c.cc.Invoke(ctx, Address_UpdateAddressUser_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -105,12 +105,12 @@ func (c *addressClient) UpdateAddressUser(ctx context.Context, in *AddressUser, 
 // All implementations must embed UnimplementedAddressServer
 // for forward compatibility
 type AddressServer interface {
-	GetProvice(context.Context, *Request) (*ResponseProvince, error)
+	GetProvince(context.Context, *Request) (*ResponseProvince, error)
 	GetDistrict(context.Context, *Request) (*ResponseDistrict, error)
 	GetWard(context.Context, *Request) (*ResponseWard, error)
 	GetListAddressUser(context.Context, *RequestListAddress) (*ResponseListAddress, error)
 	CreateAddressUser(context.Context, *AddressCreateRequest) (*AddressUser, error)
-	UpdateAddressUser(context.Context, *AddressUser) (*AddressUser, error)
+	UpdateAddressUser(context.Context, *AddressUpdateRequest) (*AddressUser, error)
 	mustEmbedUnimplementedAddressServer()
 }
 
@@ -118,8 +118,8 @@ type AddressServer interface {
 type UnimplementedAddressServer struct {
 }
 
-func (UnimplementedAddressServer) GetProvice(context.Context, *Request) (*ResponseProvince, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProvice not implemented")
+func (UnimplementedAddressServer) GetProvince(context.Context, *Request) (*ResponseProvince, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProvince not implemented")
 }
 func (UnimplementedAddressServer) GetDistrict(context.Context, *Request) (*ResponseDistrict, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDistrict not implemented")
@@ -133,7 +133,7 @@ func (UnimplementedAddressServer) GetListAddressUser(context.Context, *RequestLi
 func (UnimplementedAddressServer) CreateAddressUser(context.Context, *AddressCreateRequest) (*AddressUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAddressUser not implemented")
 }
-func (UnimplementedAddressServer) UpdateAddressUser(context.Context, *AddressUser) (*AddressUser, error) {
+func (UnimplementedAddressServer) UpdateAddressUser(context.Context, *AddressUpdateRequest) (*AddressUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAddressUser not implemented")
 }
 func (UnimplementedAddressServer) mustEmbedUnimplementedAddressServer() {}
@@ -149,20 +149,20 @@ func RegisterAddressServer(s grpc.ServiceRegistrar, srv AddressServer) {
 	s.RegisterService(&Address_ServiceDesc, srv)
 }
 
-func _Address_GetProvice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Address_GetProvince_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AddressServer).GetProvice(ctx, in)
+		return srv.(AddressServer).GetProvince(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Address_GetProvice_FullMethodName,
+		FullMethod: Address_GetProvince_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddressServer).GetProvice(ctx, req.(*Request))
+		return srv.(AddressServer).GetProvince(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -240,7 +240,7 @@ func _Address_CreateAddressUser_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _Address_UpdateAddressUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddressUser)
+	in := new(AddressUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -252,7 +252,7 @@ func _Address_UpdateAddressUser_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: Address_UpdateAddressUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddressServer).UpdateAddressUser(ctx, req.(*AddressUser))
+		return srv.(AddressServer).UpdateAddressUser(ctx, req.(*AddressUpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -265,8 +265,8 @@ var Address_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AddressServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetProvice",
-			Handler:    _Address_GetProvice_Handler,
+			MethodName: "GetProvince",
+			Handler:    _Address_GetProvince_Handler,
 		},
 		{
 			MethodName: "GetDistrict",
