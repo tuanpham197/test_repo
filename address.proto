@@ -1,0 +1,90 @@
+syntax = "proto3";
+package address;
+
+option go_package = ".;address";
+
+
+service Address {
+  rpc GetProvice (Request) returns (ResponseProvince) {}
+  rpc GetDistrict (Request) returns (ResponseDistrict) {}
+  rpc GetWard (Request) returns (ResponseWard) {}
+  rpc GetListAddressUser (RequestListAddress) returns (ResponseListAddress) {}
+  rpc CreateAddressUser (AddressCreateRequest) returns (AddressUser) {}
+  rpc UpdateAddressUser (AddressUser) returns (AddressUser) {}
+}
+
+
+message AddressUser {
+  int64 id = 1;
+  string user_id = 2;
+  string province_id = 3;
+  string district_id = 4;
+  string ward_id = 5;
+  string address = 6;
+  string full_address = 7;
+  string phone_number = 8;
+  bool is_default = 9;
+
+}
+
+message ResponseListAddress {
+  repeated AddressUser list = 1;
+}
+
+message RequestListAddress {
+  string user_id = 1;
+}
+
+message AddressCreateRequest {
+  string user_id = 1;
+  string province_id = 2;
+  string district_id = 3;
+  string ward_id = 4;
+  string address = 5;
+  string phone_number = 6;
+  bool is_default = 7;
+}
+
+message Request {
+  string code = 1;
+  string name = 2;
+}
+
+message Province {
+  string code = 1;
+  int32 name = 2;
+}
+
+message ResponseProvince {
+  repeated Province provinces = 1;
+}
+
+message ResponseDistrict {
+  repeated District districts = 1;
+}
+
+message ResponseWard {
+  repeated Ward wards = 1;
+}
+
+message District {
+  string code = 1;
+  int32 name = 2;
+  string province_code = 3;
+}
+
+message Ward {
+  string code = 1;
+  int32 name = 2;
+  string district_code = 3;
+}
+
+enum Status {
+  OK = 0;
+  FAILED = 1;
+}
+
+message StatusRes {
+  Status status = 1;
+  string message = 2;
+}

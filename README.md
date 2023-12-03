@@ -17,6 +17,13 @@ protoc --proto_path=./ --go_out=./logger --go_opt=paths=source_relative \
     logger.proto
 ```
 
+### Run generate proto for address
+```
+protoc --proto_path=./ --go_out=./address --go_opt=paths=source_relative \
+    --go-grpc_out=./address --go-grpc_opt=paths=source_relative \
+    address.proto
+```
+
 ### Add tag version for pkg
 1. Add tag
 ```
