@@ -5,7 +5,7 @@ option go_package = ".;address";
 
 
 service Address {
-  rpc GetProvice (Request) returns (ResponseProvince) {}
+  rpc GetProvince (Request) returns (ResponseProvince) {}
   rpc GetDistrict (Request) returns (ResponseDistrict) {}
   rpc GetWard (Request) returns (ResponseWard) {}
   rpc GetListAddressUser (RequestListAddress) returns (ResponseListAddress) {}
@@ -52,7 +52,7 @@ message Request {
 
 message Province {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
 }
 
 message ResponseProvince {
@@ -69,13 +69,13 @@ message ResponseWard {
 
 message District {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
   string province_code = 3;
 }
 
 message Ward {
   string code = 1;
-  int32 name = 2;
+  string name = 2;
   string district_code = 3;
 }
 
