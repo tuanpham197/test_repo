@@ -21,6 +21,7 @@ protoc --proto_path=./ --go_out=./logger --go_opt=paths=source_relative \
 ```
 protoc --proto_path=./ --go_out=./address --go_opt=paths=source_relative \
     --go-grpc_out=./address --go-grpc_opt=paths=source_relative \
+    -I ./vendor/protovalidate/proto/protovalidate \
     address.proto
 ```
 
@@ -35,5 +36,5 @@ git push origin v0.1.0
 ```
 3. Go git update
 ```
-go get -u github.com/tuanpham197/test_repo@v0.1.0
+go get -u github.com/tuanpham197/test_repo@v0.4.4
 ```
