@@ -11,6 +11,7 @@ service Address {
   rpc GetListAddressUser (RequestListAddress) returns (ResponseListAddress) {}
   rpc CreateAddressUser (AddressCreateRequest) returns (AddressUser) {}
   rpc UpdateAddressUser (AddressUpdateRequest) returns (AddressUser) {}
+  rpc GetDefaultAddress (RequestListAddress) returns (AddressUser) {}
 }
 
 
@@ -27,7 +28,6 @@ message AddressUser {
   District district = 10;
   Ward ward = 11;
   string name = 12;
-
 }
 
 message ResponseListAddress {
@@ -59,17 +59,6 @@ message AddressUpdateRequest {
   int64 id = 7;
   string user_id = 8;
   string name = 9;
-}
-
-message AddressUpdateRequest {
-  string province_code = 1;
-  string district_code = 2;
-  string ward_code = 3;
-  string address = 4;
-  string phone_number = 5;
-  bool is_default = 6;
-  int64 id = 7;
-  string user_id = 8;
 }
 
 message Request {
