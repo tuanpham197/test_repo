@@ -1,0 +1,62 @@
+syntax = "proto3";
+package review;
+
+import "google/protobuf/struct.proto";
+
+
+option go_package = ".;review";
+
+
+service Review {
+  rpc GetListReview (RequestListReview) returns (ResponseListReview) {}
+  rpc CreateReview (ReviewCreateRequest) returns (ReviewResponse) {}
+}
+
+
+message ReviewCreateRequest {
+    string product_id = 1;
+    string variant_id = 2;
+    string user_id = 3;
+    string content = 4;
+    int32 rate = 5;
+    google.protobuf.Struct files = 6;
+}
+
+message RequestListReview {
+  string id = 1;
+  string page = 2;
+  string per_page = 3;
+}
+
+message ReviewResponse {
+  string id = 1;
+  string content = 2;
+  float rate = 3;
+  string user_id = 4;
+  string product_id = 5;
+  string variant_id = 6;
+  int32 like_number = 7;
+  google.protobuf.Struct files = 8;
+}
+
+message ResponseListReview {
+  repeated ReviewResponse records = 1;
+  int32 count = 2;
+  int32 pages = 3;
+  int32 offset = 4;
+  int32 limit = 5;
+  int32 page = 6;
+  int32 prev_page = 7;
+  int32 next_page = 8;
+}
+
+
+enum Status {
+  OK = 0;
+  FAILED = 1;
+}
+
+message StatusRes {
+  Status status = 1;
+  string message = 2;
+}

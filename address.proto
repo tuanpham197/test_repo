@@ -22,10 +22,11 @@ message AddressUser {
   string ward_code = 5;
   string address = 6;
   string phone_number = 7;
-  bool is_default = 8;
+  int32 is_default = 8;
   Province province = 9;
-  District District = 10;
+  District district = 10;
   Ward ward = 11;
+  string name = 12;
 
 }
 
@@ -44,7 +45,20 @@ message AddressCreateRequest {
   string ward_code = 4;
   string address = 5;
   string phone_number = 6;
-  bool is_default = 7;
+  int32 is_default = 7;
+  string name = 8;
+}
+
+message AddressUpdateRequest {
+  string province_code = 1;
+  string district_code = 2;
+  string ward_code = 3;
+  string address = 4;
+  string phone_number = 5;
+  int32 is_default = 6;
+  int64 id = 7;
+  string user_id = 8;
+  string name = 9;
 }
 
 message AddressUpdateRequest {

@@ -45,5 +45,5 @@ git push origin v0.1.0
 3. Go git update
 
 ```
-go get -u github.com/tuanpham197/test_repo@v0.5.4
+go get -u github.com/tuanpham197/test_repo@v0.5.6
 ```
