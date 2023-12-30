@@ -82,7 +82,7 @@ type AddressUser struct {
 	Province     *Province `protobuf:"bytes,9,opt,name=province,proto3" json:"province,omitempty"`
 	District     *District `protobuf:"bytes,10,opt,name=district,proto3" json:"district,omitempty"`
 	Ward         *Ward     `protobuf:"bytes,11,opt,name=ward,proto3" json:"ward,omitempty"`
-	Name         string    `protobuf:"bytes,14,opt,name=name,proto3" json:"name,omitempty"`
+	Name         string    `protobuf:"bytes,12,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (x *AddressUser) Reset() {
@@ -199,27 +199,6 @@ func (x *AddressUser) GetName() string {
 		return x.Name
 	}
 	return ""
-}
-
-func (x *AddressUser) GetProvince() *Province {
-	if x != nil {
-		return x.Province
-	}
-	return nil
-}
-
-func (x *AddressUser) GetDistrict() *District {
-	if x != nil {
-		return x.District
-	}
-	return nil
-}
-
-func (x *AddressUser) GetWard() *Ward {
-	if x != nil {
-		return x.Ward
-	}
-	return nil
 }
 
 type ResponseListAddress struct {
@@ -526,109 +505,6 @@ func (x *AddressUpdateRequest) GetUserId() string {
 func (x *AddressUpdateRequest) GetName() string {
 	if x != nil {
 		return x.Name
-	}
-	return ""
-}
-
-type AddressUpdateRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ProvinceCode string `protobuf:"bytes,1,opt,name=province_code,json=provinceCode,proto3" json:"province_code,omitempty"`
-	DistrictCode string `protobuf:"bytes,2,opt,name=district_code,json=districtCode,proto3" json:"district_code,omitempty"`
-	WardCode     string `protobuf:"bytes,3,opt,name=ward_code,json=wardCode,proto3" json:"ward_code,omitempty"`
-	Address      string `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
-	PhoneNumber  string `protobuf:"bytes,5,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
-	IsDefault    bool   `protobuf:"varint,6,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
-	Id           int64  `protobuf:"varint,7,opt,name=id,proto3" json:"id,omitempty"`
-	UserId       string `protobuf:"bytes,8,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-}
-
-func (x *AddressUpdateRequest) Reset() {
-	*x = AddressUpdateRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_address_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AddressUpdateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddressUpdateRequest) ProtoMessage() {}
-
-func (x *AddressUpdateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_address_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddressUpdateRequest.ProtoReflect.Descriptor instead.
-func (*AddressUpdateRequest) Descriptor() ([]byte, []int) {
-	return file_address_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *AddressUpdateRequest) GetProvinceCode() string {
-	if x != nil {
-		return x.ProvinceCode
-	}
-	return ""
-}
-
-func (x *AddressUpdateRequest) GetDistrictCode() string {
-	if x != nil {
-		return x.DistrictCode
-	}
-	return ""
-}
-
-func (x *AddressUpdateRequest) GetWardCode() string {
-	if x != nil {
-		return x.WardCode
-	}
-	return ""
-}
-
-func (x *AddressUpdateRequest) GetAddress() string {
-	if x != nil {
-		return x.Address
-	}
-	return ""
-}
-
-func (x *AddressUpdateRequest) GetPhoneNumber() string {
-	if x != nil {
-		return x.PhoneNumber
-	}
-	return ""
-}
-
-func (x *AddressUpdateRequest) GetIsDefault() bool {
-	if x != nil {
-		return x.IsDefault
-	}
-	return false
-}
-
-func (x *AddressUpdateRequest) GetId() int64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *AddressUpdateRequest) GetUserId() string {
-	if x != nil {
-		return x.UserId
 	}
 	return ""
 }
@@ -1101,7 +977,7 @@ var file_address_proto_rawDesc = []byte{
 	0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x63, 0x74, 0x52, 0x08, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69,
 	0x63, 0x74, 0x12, 0x21, 0x0a, 0x04, 0x77, 0x61, 0x72, 0x64, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x0d, 0x2e, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x52,
-	0x04, 0x77, 0x61, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x0e, 0x20,
+	0x04, 0x77, 0x61, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x0c, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x3f, 0x0a, 0x13, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73,
 	0x12, 0x28, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14,

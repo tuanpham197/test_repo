@@ -61,17 +61,6 @@ message AddressUpdateRequest {
   string name = 9;
 }
 
-message AddressUpdateRequest {
-  string province_code = 1;
-  string district_code = 2;
-  string ward_code = 3;
-  string address = 4;
-  string phone_number = 5;
-  bool is_default = 6;
-  int64 id = 7;
-  string user_id = 8;
-}
-
 message Request {
   string code = 1;
   string name = 2;
