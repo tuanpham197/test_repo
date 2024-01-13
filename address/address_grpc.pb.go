@@ -25,6 +25,7 @@ const (
 	Address_GetListAddressUser_FullMethodName = "/address.Address/GetListAddressUser"
 	Address_CreateAddressUser_FullMethodName  = "/address.Address/CreateAddressUser"
 	Address_UpdateAddressUser_FullMethodName  = "/address.Address/UpdateAddressUser"
+	Address_GetDefaultAddress_FullMethodName  = "/address.Address/GetDefaultAddress"
 )
 
 // AddressClient is the client API for Address service.
@@ -37,6 +38,7 @@ type AddressClient interface {
 	GetListAddressUser(ctx context.Context, in *RequestListAddress, opts ...grpc.CallOption) (*ResponseListAddress, error)
 	CreateAddressUser(ctx context.Context, in *AddressCreateRequest, opts ...grpc.CallOption) (*AddressUser, error)
 	UpdateAddressUser(ctx context.Context, in *AddressUpdateRequest, opts ...grpc.CallOption) (*AddressUser, error)
+	GetDefaultAddress(ctx context.Context, in *RequestListAddress, opts ...grpc.CallOption) (*AddressUser, error)
 }
 
 type addressClient struct {
@@ -101,6 +103,15 @@ func (c *addressClient) UpdateAddressUser(ctx context.Context, in *AddressUpdate
 	return out, nil
 }
 
+func (c *addressClient) GetDefaultAddress(ctx context.Context, in *RequestListAddress, opts ...grpc.CallOption) (*AddressUser, error) {
+	out := new(AddressUser)
+	err := c.cc.Invoke(ctx, Address_GetDefaultAddress_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AddressServer is the server API for Address service.
 // All implementations must embed UnimplementedAddressServer
 // for forward compatibility
@@ -111,6 +122,7 @@ type AddressServer interface {
 	GetListAddressUser(context.Context, *RequestListAddress) (*ResponseListAddress, error)
 	CreateAddressUser(context.Context, *AddressCreateRequest) (*AddressUser, error)
 	UpdateAddressUser(context.Context, *AddressUpdateRequest) (*AddressUser, error)
+	GetDefaultAddress(context.Context, *RequestListAddress) (*AddressUser, error)
 	mustEmbedUnimplementedAddressServer()
 }
 
@@ -135,6 +147,9 @@ func (UnimplementedAddressServer) CreateAddressUser(context.Context, *AddressCre
 }
 func (UnimplementedAddressServer) UpdateAddressUser(context.Context, *AddressUpdateRequest) (*AddressUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAddressUser not implemented")
+}
+func (UnimplementedAddressServer) GetDefaultAddress(context.Context, *RequestListAddress) (*AddressUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDefaultAddress not implemented")
 }
 func (UnimplementedAddressServer) mustEmbedUnimplementedAddressServer() {}
 
@@ -257,6 +272,24 @@ func _Address_UpdateAddressUser_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Address_GetDefaultAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestListAddress)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AddressServer).GetDefaultAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Address_GetDefaultAddress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AddressServer).GetDefaultAddress(ctx, req.(*RequestListAddress))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Address_ServiceDesc is the grpc.ServiceDesc for Address service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -287,6 +320,10 @@ var Address_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAddressUser",
 			Handler:    _Address_UpdateAddressUser_Handler,
+		},
+		{
+			MethodName: "GetDefaultAddress",
+			Handler:    _Address_GetDefaultAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
